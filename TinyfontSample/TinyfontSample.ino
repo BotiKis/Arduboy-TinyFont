@@ -6,9 +6,8 @@ Tinyfont tinyfont;
 char allLetters[101];
 
 void setup() {
-  // put your setup code here, to run once:
-
-    arduboy.begin();
+  arduboy.begin();
+    Serial.begin(9600);
 
     // create all ascii letters from 32-126
     size_t newLineCounter = 0;
@@ -28,12 +27,18 @@ void loop() {
   // put your main code here, to run repeatedly:
 
   arduboy.clear();
-  // for comparison
-  arduboy.print("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-  tinyfont.print("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 0, 8);
+  tinyfont.print("THE QUICK BROWN FOX JUMPS\nOVER THE LAZY DOG.", 1, 1);
+  tinyfont.print("The quick brown fox jumps\nover the lazy dog.", 1, 13);
 
   // all letters
-  tinyfont.print(allLetters, 0, 12);
+  tinyfont.print(allLetters, 1, 22);
+  
+  // for comparison
+  arduboy.setCursor(1, 52);
+  arduboy.print("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
+  
 
+  // screen capture
+  Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
   arduboy.display();
 }
