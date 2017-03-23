@@ -69,6 +69,9 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
   // layout lowercase letters
   if (cval >= 65 && cval <= 90) y++;
 
+  // layout comma letters
+  if (cval == 12 || cval == 27) y++;
+
   const uint8_t *bitmap = TINYFONT_SPRITE;
   const uint8_t *mask = TINYFONT_MASK;
   unsigned int frame_offset = 8;
