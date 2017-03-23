@@ -27,7 +27,7 @@ I'm pretty sure this can be optimized since it takes a lot of space.
 `Sketch uses 8626 bytes (30%) of program storage space`
 
 
-##Table
+## Table
 **dec**|**hex**|**symbol**
 :-----:|:-----:|:-----:
 32|20|(space)
