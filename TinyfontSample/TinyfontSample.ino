@@ -7,10 +7,10 @@ char allLetters[101];
 
 void setup() {
   arduboy.begin();
-  //Serial.begin(9600);
+  Serial.begin(9600);
     
   // create all ascii letters from 32-126
-  /*
+  
   size_t newLineCounter = 0;
   for (size_t i = 0; i < 100; i++) {
     if ((i % 26) == 0) {
@@ -21,7 +21,7 @@ void setup() {
       allLetters[i] = (char) (i+32) - newLineCounter;
     }
   }
-  allLetters[100] = '\0';*/
+  allLetters[100] = '\0';
 }
 
 void loop() {
@@ -32,13 +32,13 @@ void loop() {
   tinyfont.print("The quick brown fox jumps\nover the lazy dog.", 1, 13);
 
   // all letters
-  //tinyfont.print(allLetters, 1, 22);
+  tinyfont.print(allLetters, 1, 22);
   
   // for comparison
   //arduboy.setCursor(1, 52);
   //arduboy.print("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
   
   // screen capture
-  //Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
+  Serial.write(arduboy.getBuffer(), 128 * 64 / 8);
   arduboy.display();
 }
