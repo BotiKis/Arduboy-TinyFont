@@ -1,7 +1,7 @@
 # Arduboy-TinyFont  
 Tiny 4x4 Font for Arduboy which contains the small ASCII Table from 32 to 127.  
 The sprites for the font are using 224 bytes.  
-The last character 127 is supposed to bel `DEL` but i used it as a placeholder (■) for not found characters.
+The last character 127 is supposed to bel `DEL` but i used it as a placeholder (■) for not found characters.  
 
 ![Preview](https://github.com/yinkou/Arduboy-TinyFont/blob/master/bitmaps/tinyfont-preview.png?raw=true "Font Preview")
 
@@ -10,6 +10,11 @@ Make an instance of `Tinyfont` and call `print()` with you c-string and position
 
 ## Customization:
 You can adjust `letterSpacing` and `lineHeight`.
+
+#### Custom characters:
+You can add custom characters above 127 (up to index 255) by using the `4x4font.png` as base.  
+Edit the file (or the .psd) in an image editor of your choice. But be sure to always append 8x8 pixels at the end which you can fill as you like.
+Throw the new .png through a image converter and replace the sprite in `TinyfontSprite.c` with your new data.
 
 ## Dependencies:
 Arduboy2 is required to work since it writes to sBuffer[].
@@ -21,7 +26,7 @@ I'm pretty sure this can be optimized since it takes a lot of space.
 `Sketch uses 7896 bytes (27%) of program storage space`
 
 #### Tinyfont::print()
-`Sketch uses 8610 bytes (30%) of program storage space.`
+`Sketch uses 8670 bytes (30%) of program storage space.`
 
 #### Both:
 `Sketch uses 8626 bytes (30%) of program storage space`
@@ -122,7 +127,7 @@ I'm pretty sure this can be optimized since it takes a lot of space.
 121|79|y
 122|7A|z
 123|7B|{
-124|7C||
+124|7C|\\|
 125|7D|}
 126|7E|~
 127|7F|■

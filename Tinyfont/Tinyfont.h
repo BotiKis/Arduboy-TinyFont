@@ -24,6 +24,10 @@ class Tinyfont{
 
     uint8_t letterSpacing;  //!< LetterspletterSpacingacing controls the distance between letters. Default is 1.
     uint8_t lineHeight;     //!< lineHeight controls the height between lines breakend by \n. Default is 5.
+
+  private:
+    void drawPixel(int16_t x, int16_t y, uint8_t color);  
 };
 
 #endif
+
