@@ -11,9 +11,13 @@ Call `print()` with you c-string and position to draw text to the screen.
 
 #### Sample:
 ```cpp  
-Tinyfont tinyfont.print = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
-tinyfont.print("The quick brown fox jumps\nover the lazy dog.", 1, 11);  
+Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
+tinyfont.setCursor(0, 0);
+tinyfont.print("The quick brown fox jumps\nover the lazy dog.");  
 ```
+
+## Dependencies:
+Subclass of Arduino `Print`.
 
 ## Customization:
 You can adjust `letterSpacing` and `lineHeight`.
@@ -27,13 +31,13 @@ Throw the new .png through a image converter and replace the sprite in `Tinyfont
 I'm pretty sure this can be optimized since it takes a lot of space.
 
 #### Arduboy2::print()
-`Sketch uses 7928 bytes (27%) of program storage space`
+`Sketch uses 7902 bytes (27%) of program storage space`
 
 #### Tinyfont::print()
-`Sketch uses 9328 bytes (30%) of program storage space.`
+`Sketch uses 8834 bytes (30%) of program storage space.`
 
 #### Both:
-`Sketch uses 9434 bytes (30%) of program storage space`
+`Sketch uses 8918 bytes (30%) of program storage space`
 
 
 ## Table

@@ -1,6 +1,5 @@
 #include "Tinyfont.h"
 #include "TinyfontSprite.c"
-#include <string.h>
 
 #define TINYFONT_WIDTH 4
 #define TINYFONT_HEIGHT 4
@@ -13,32 +12,28 @@ Tinyfont::Tinyfont(uint8_t *screenBuffer, int16_t width, int16_t height){
   // default values
   lineHeight = TINYFONT_HEIGHT + 1;
   letterSpacing = 1;
+
+  cursorX = cursorY = baseX = 0;
+  textColor = 1;
 }
 
-void Tinyfont::print(const char *text, int16_t x, int16_t y){
-  size_t l = strlen(text);
-  int cursorX = x;
-  int cursorY = y;
-
-  for (size_t i = 0; i < l; i++) {
-    // check for new line
-    if(text[i] == '\n'){
-      cursorX = x; // cr
-      cursorY += lineHeight; // lf
-    }
-    // check for tab
-    else if(text[i] == '\t'){
-      cursorX += TINYFONT_WIDTH + 5;
-    }
-    else{
-      // draw char
-      printChar(text[i], cursorX, cursorY);
-      cursorX += TINYFONT_WIDTH + letterSpacing;
-    }
+size_t Tinyfont::write(uint8_t c) {
+  if(c == '\n'){
+    cursorX = baseX; // cr
+    cursorY += lineHeight; // lf
   }
+  // check for tab
+  else if(c == '\t'){
+    cursorX += TINYFONT_WIDTH + 5;
+  }
+  else{
+    // draw char
+    printChar(c, cursorX, cursorY);
+    cursorX += TINYFONT_WIDTH + letterSpacing;
+  }
+    return 1;
 }
 
-//common functions
 void Tinyfont::printChar(char c, int16_t x, int16_t y)
 {
   // no need to draw at all of we're offscreen
@@ -86,7 +81,10 @@ void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
   // check if byte needs to be seperated
   if (((uint8_t)y)%8 == 0) {
     uint8_t col = (uint8_t)x % sWidth;
-    sBuffer[col + row*sWidth] |= pixels;
+    if (textColor == 0)
+      sBuffer[col + row*sWidth] &= ~pixels;
+    else
+      sBuffer[col + row*sWidth] |= pixels;
   }
   else{
     uint8_t d = (uint8_t)y%8;
@@ -94,4 +92,21 @@ void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
     drawByte(x, row*8, pixels << d);
     drawByte(x, (row+1)*8, pixels >> (8-d));
   }
+}
+
+void Tinyfont::setCursor(int16_t x, int16_t y){
+  cursorX = baseX = x;
+  cursorY = y;
+}
+
+int16_t Tinyfont::getCursorX(){
+  return cursorX;
+}
+
+int16_t Tinyfont::getCursorY(){
+  return cursorY;
+}
+
+void Tinyfont::setTextColor(uint8_t color){
+  textColor = color;
 }
