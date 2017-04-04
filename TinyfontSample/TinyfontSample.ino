@@ -12,7 +12,7 @@ void setup() {
   tinyfont = new Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
     
   // create all ascii letters from 32-126
-  
+
   size_t newLineCounter = 0;
   for (size_t i = 0; i < 100; i++) {
     if ((i % 26) == 0) {
@@ -37,8 +37,8 @@ void loop() {
   tinyfont->print(allLetters, 1, 22);
   
   // for comparison
-  //arduboy.setCursor(1, 52);
-  //arduboy.print("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
+  arduboy.setCursor(1, 52);
+  arduboy.print("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.");
   
   // screen capture
   Serial.write(arduboy.getBuffer(), 128 * 64 / 8);

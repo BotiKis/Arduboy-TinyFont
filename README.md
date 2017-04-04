@@ -1,12 +1,19 @@
 # Arduboy-TinyFont  
 Tiny 4x4 Font for Arduboy which contains the small ASCII Table from 32 to 127.  
-The sprites for the font are using 224 bytes.  
+The sprite for the font uses 192 bytes.  
 The last character 127 is supposed to bel `DEL` but i used it as a placeholder (■) for not found characters.  
 
 ![Preview](https://github.com/yinkou/Arduboy-TinyFont/blob/master/bitmaps/tinyfont-preview.png?raw=true "Font Preview")
 
 ## Usage:
-Make an instance of `Tinyfont` and call `print()` with you c-string and position.
+Make an instance of `Tinyfont` and initialize it with a screenbuffer with corresponding sizes.  
+Call `print()` with you c-string and position to draw text to the screen.
+
+#### Sample:
+```cpp  
+Tinyfont tinyfont.print = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
+tinyfont.print("The quick brown fox jumps\nover the lazy dog.", 1, 11);  
+```
 
 ## Customization:
 You can adjust `letterSpacing` and `lineHeight`.
@@ -16,20 +23,17 @@ You can add custom characters above 127 (up to index 255) by using the `4x4font.
 Edit the file (or the .psd) in an image editor of your choice. But be sure to always append 8x8 pixels at the end which you can fill as you like.
 Throw the new .png through a image converter and replace the sprite in `TinyfontSprite.c` with your new data.
 
-## Dependencies:
-Arduboy2 is required to work since it writes to sBuffer[].
-
 ## Optimization:
 I'm pretty sure this can be optimized since it takes a lot of space.
 
 #### Arduboy2::print()
-`Sketch uses 7896 bytes (27%) of program storage space`
+`Sketch uses 7928 bytes (27%) of program storage space`
 
 #### Tinyfont::print()
-`Sketch uses 8670 bytes (30%) of program storage space.`
+`Sketch uses 9328 bytes (30%) of program storage space.`
 
 #### Both:
-`Sketch uses 8626 bytes (30%) of program storage space`
+`Sketch uses 9434 bytes (30%) of program storage space`
 
 
 ## Table
