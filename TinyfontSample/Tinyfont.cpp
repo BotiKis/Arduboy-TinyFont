@@ -32,7 +32,7 @@ void Tinyfont::print(const char *text, int16_t x, int16_t y){
     }
     else{
       // draw char
-      Tinyfont::printChar(text[i], cursorX, cursorY);
+      printChar(text[i], cursorX, cursorY);
       cursorX += TINYFONT_WIDTH + letterSpacing;
     }
   }
@@ -41,7 +41,6 @@ void Tinyfont::print(const char *text, int16_t x, int16_t y){
 //common functions
 void Tinyfont::printChar(char c, int16_t x, int16_t y)
 {
-
   // no need to draw at all of we're offscreen
   if (x + TINYFONT_WIDTH <= 0 || x > sWidth - 1 || y + TINYFONT_HEIGHT <= 0 || y > sHeight - 1)
     return;
@@ -76,27 +75,23 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
       // for every odd character, shift pixels to get the correct character
       colData >>= 4;
     }
-    for ( uint8_t j = 0; j < 4; j++ ) {
-      // shift our pixel over
-      uint8_t pixel = (colData >> j) & 0x01;
-      drawPixel(x+i, y+j, pixel);
-    }
-  }
-}
-
-void Tinyfont::drawPixel(int16_t x, int16_t y, uint8_t color)
-{
-  uint8_t row = (uint8_t)y / 8;
-  if (color)
-  {
-    sBuffer[(row*sWidth) + (uint8_t)x] |=   _BV((uint8_t)y % 8);
-  }
-  else
-  {
-    sBuffer[(row*sWidth) + (uint8_t)x] &= ~ _BV((uint8_t)y % 8);
+    drawByte(x+i, y, colData);
   }
 }
 
 void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
 
+  uint8_t row = (uint8_t)y / 8;
+
+  // check if byte needs to be seperated
+  if (((uint8_t)y)%8 == 0) {
+    uint8_t col = (uint8_t)x % sWidth;
+    sBuffer[col + row*sWidth] |= pixels;
+  }
+  else{
+    uint8_t d = (uint8_t)y%8;
+
+    drawByte(x, row*8, pixels << d);
+    drawByte(x, (row+1)*8, pixels >> (8-d));
+  }
 }

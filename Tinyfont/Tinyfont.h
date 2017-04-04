@@ -26,7 +26,6 @@ class Tinyfont{
     uint8_t lineHeight;     //!< lineHeight controls the height between lines breakend by \n. Default is 5.
 
   private:
-    void drawPixel(int16_t x, int16_t y, uint8_t color);
     void drawByte(int16_t x, int16_t y, uint8_t pixels);
 
     uint8_t *sBuffer;
