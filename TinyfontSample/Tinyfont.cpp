@@ -1,10 +1,16 @@
 #include "Tinyfont.h"
 #include "TinyfontSprite.c"
+#include <string.h>
 
 #define TINYFONT_WIDTH 4
 #define TINYFONT_HEIGHT 4
 
-Tinyfont::Tinyfont(){
+Tinyfont::Tinyfont(uint8_t *screenBuffer, int16_t width, int16_t height){
+  sBuffer = screenBuffer;
+  sWidth = width;
+  sHeight = height;
+
+  // default values
   lineHeight = TINYFONT_HEIGHT + 1;
   letterSpacing = 1;
 }
@@ -37,7 +43,7 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
 {
 
   // no need to draw at all of we're offscreen
-  if (x + TINYFONT_WIDTH <= 0 || x > WIDTH - 1 || y + TINYFONT_HEIGHT <= 0 || y > HEIGHT - 1)
+  if (x + TINYFONT_WIDTH <= 0 || x > sWidth - 1 || y + TINYFONT_HEIGHT <= 0 || y > sHeight - 1)
     return;
 
   // check if char is available
@@ -83,11 +89,14 @@ void Tinyfont::drawPixel(int16_t x, int16_t y, uint8_t color)
   uint8_t row = (uint8_t)y / 8;
   if (color)
   {
-    Arduboy2::sBuffer[(row*WIDTH) + (uint8_t)x] |=   _BV((uint8_t)y % 8);
+    sBuffer[(row*sWidth) + (uint8_t)x] |=   _BV((uint8_t)y % 8);
   }
   else
   {
-    Arduboy2::sBuffer[(row*WIDTH) + (uint8_t)x] &= ~ _BV((uint8_t)y % 8);
+    sBuffer[(row*sWidth) + (uint8_t)x] &= ~ _BV((uint8_t)y % 8);
   }
 }
 
+void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
+
+}
