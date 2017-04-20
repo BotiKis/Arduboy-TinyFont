@@ -52,17 +52,12 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
   if (cval == 12 || cval == 27) y++;
 
   // get sprite frames
-  uint8_t spriteFrame = cval/4;
-
-  const uint8_t *letter = TINYFONT_SPRITE + (spriteFrame * 8);
-
-  // check if character is in the right part of the sprite
-  if (cval % 2 == 1) letter += 4;
+  const uint8_t *letter = TINYFONT_SPRITE + ((cval/2) * 4);
 
   for (uint8_t i = 0; i < 4; i++ ) {
 
     uint8_t colData = pgm_read_byte(letter++);
-    if (c % 4 < 2) {
+    if (c % 2 == 0) {
       // mask upper sprite
       colData &= 0x0f;
     }
