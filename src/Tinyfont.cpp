@@ -15,6 +15,8 @@ Tinyfont::Tinyfont(uint8_t *screenBuffer, int16_t width, int16_t height){
 
   cursorX = cursorY = baseX = 0;
   textColor = 1;
+
+  maskText = false;
 }
 
 size_t Tinyfont::write(uint8_t c) {
@@ -25,6 +27,11 @@ size_t Tinyfont::write(uint8_t c) {
   // check for tab
   else if(c == '\t'){
     cursorX += TINYFONT_WIDTH + 5;
+  }
+  // check \n
+  else if (c == '\n') {
+    cursorX = baseX;
+    cursorY += lineHeight;
   }
   else{
     // draw char
@@ -65,18 +72,23 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
       // for every odd character, shift pixels to get the correct character
       colData >>= 4;
     }
-    drawByte(x+i, y, colData);
+
+    if (maskText) {
+      drawByte(x+i, y, 0x0f, (textColor == 0)?1:0);
+    }
+
+    drawByte(x+i, y, colData, textColor);
   }
 }
 
-void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
+void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels, uint8_t color){
 
   uint8_t row = (uint8_t)y / 8;
 
   // check if byte needs to be seperated
   if (((uint8_t)y)%8 == 0) {
     uint8_t col = (uint8_t)x % sWidth;
-    if (textColor == 0)
+    if (color == 0)
       sBuffer[col + row*sWidth] &= ~pixels;
     else
       sBuffer[col + row*sWidth] |= pixels;
@@ -84,8 +96,8 @@ void Tinyfont::drawByte(int16_t x, int16_t y, uint8_t pixels){
   else{
     uint8_t d = (uint8_t)y%8;
 
-    drawByte(x, row*8, pixels << d);
-    drawByte(x, (row+1)*8, pixels >> (8-d));
+    drawByte(x, row*8, pixels << d, color);
+    drawByte(x, (row+1)*8, pixels >> (8-d), color);
   }
 }
 

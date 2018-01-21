@@ -1,5 +1,5 @@
 #include <Arduboy2.h>
-#include <Tinyfont.h>
+#include "Tinyfont.h"
 
 Arduboy2 arduboy;
 Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());

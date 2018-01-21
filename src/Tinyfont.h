@@ -76,8 +76,14 @@ class Tinyfont : public Print {
      */
     void setTextColor(uint8_t color);
 
+    /** \brief
+     * If set to true the pixel behind the text will be set to the opposite of textColor.
+     * Default is false.
+     */
+    bool maskText;
+
   private:
-    void drawByte(int16_t x, int16_t y, uint8_t pixels);
+    void drawByte(int16_t x, int16_t y, uint8_t pixels, uint8_t color);
 
     uint8_t *sBuffer;
     int16_t sWidth;
