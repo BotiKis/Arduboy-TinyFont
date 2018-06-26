@@ -77,6 +77,13 @@ class Tinyfont : public Print {
     void setTextColor(uint8_t color);
 
     /** \brief
+     * Get the text foreground color.
+     *
+     * \return The color used for text.
+     */
+    uint8_t getTextColor() const;
+
+    /** \brief
      * If set to true the pixel behind the text will be set to the opposite of textColor.
      * Default is false.
      */

@@ -117,3 +117,7 @@ int16_t Tinyfont::getCursorY() const {
 void Tinyfont::setTextColor(uint8_t color){
   textColor = color;
 }
+
+uint8_t Tinyfont::getTextColor() const {
+  return textColor;
+}
