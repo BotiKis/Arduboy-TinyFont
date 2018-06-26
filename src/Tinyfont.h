@@ -56,7 +56,7 @@ class Tinyfont : public Print {
      * The X coordinate returned is a pixel location with 0 indicating the
      * leftmost column.
      */
-    int16_t getCursorX();
+    int16_t getCursorX() const;
 
     /** \brief
      * Get the Y coordinate of the current text cursor position.
@@ -67,7 +67,7 @@ class Tinyfont : public Print {
      * The Y coordinate returned is a pixel location with 0 indicating the
      * topmost row.
      */
-    int16_t getCursorY();
+    int16_t getCursorY() const;
 
     /** \brief
      * Set the text foreground color.
