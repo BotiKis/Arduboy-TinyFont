@@ -100,7 +100,7 @@ class Tinyfont : public Print {
     int16_t baseX;      //!< needed for linebreak.
     int16_t cursorY;    //!< Default is 0.
 
-    int16_t textColor;  // BLACK == 0, everything else is WHITE. Default is WHITE.
+    uint8_t textColor;  // BLACK == 0, everything else is WHITE. Default is WHITE.
 
     uint8_t letterSpacing;  //!< letterSpacing controls the distance between letters. Default is 1.
     uint8_t lineHeight;     //!< lineHeight controls the height between lines breakend by \n. Default is 5.
