@@ -106,11 +106,11 @@ void Tinyfont::setCursor(int16_t x, int16_t y){
   cursorY = y;
 }
 
-int16_t Tinyfont::getCursorX(){
+int16_t Tinyfont::getCursorX() const {
   return cursorX;
 }
 
-int16_t Tinyfont::getCursorY(){
+int16_t Tinyfont::getCursorY() const {
   return cursorY;
 }
 
