@@ -48,7 +48,7 @@ void Tinyfont::printChar(char c, int16_t x, int16_t y)
     return;
 
   // check if char is available
-  if (((uint8_t) c) < 32 || ((uint8_t) c) > 255) c = (char)127;
+  if (((uint8_t) c) < 32 || ((uint8_t) c) > 127) c = (char)127;
 
   uint8_t cval = ((uint8_t) c) - 32;
 
